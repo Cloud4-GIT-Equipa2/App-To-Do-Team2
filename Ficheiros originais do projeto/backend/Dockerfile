@@ -1,7 +1,11 @@
 FROM node:latest
-RUN mkdir -p /usr/src/backend-node
-WORKDIR /usr/src/app
-COPY package.json /usr/src/backend-node/
+
+
+
+ENV MONGODB_URI='mongodb://localhost:27017/teste'
+
+WORKDIR /usr/src/backend-node
+COPY . /usr/src/backend-node/
 RUN npm install
 COPY . /usr/src/backend-node
 EXPOSE 3000
