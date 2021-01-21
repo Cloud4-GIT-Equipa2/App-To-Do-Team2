@@ -18,7 +18,8 @@ docker run -d  --name mongo-todolist  -p 27017:27017 -e MONGO_INITDB_ROOT_USERNA
 
 Enter in the `backend` folder and create a .env file. There is a .env.example to change the values for mongodb and port. After that run the command:
 
-npm install && npm start
+npm install
+npm start
 
 The backend server will run on the .env selected port.
 
