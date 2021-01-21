@@ -12,13 +12,13 @@
 You have to run a mongodb in order to use the app.
 
 If you have docker installed just run the code above:
-`docker run -d  --name mongo-todolist  -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongo`
+docker run -d  --name mongo-todolist  -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongo
 
 ## Nodejs
 
 Enter in the `backend` folder and create a .env file. There is a .env.example to change the values for mongodb and port. After that run the command:
 
-`npm install && npm start`
+npm install && npm start
 
 The backend server will run on the .env selected port.
 
