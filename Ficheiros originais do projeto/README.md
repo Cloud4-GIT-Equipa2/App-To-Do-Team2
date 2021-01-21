@@ -1,5 +1,10 @@
 # node-angular-todolist
 
+
+
+
+
+
 # Backend
 
 ## Mongodb
@@ -16,6 +21,12 @@ Enter in the `backend` folder and create a .env file. There is a .env.example to
 `npm install && npm start`
 
 The backend server will run on the .env selected port.
+
+
+
+
+
+
 
 # Frontend
 
