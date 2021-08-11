@@ -8,6 +8,8 @@ services:
       - "4200:4200"
     links:
       - backend
+    networks:
+      - elastic
   backend:    
     container_name: backend
     restart: always
@@ -16,6 +18,8 @@ services:
       - "3000:3000"
     links:
       - mongodb
+    networks:
+      - elastic
   mongodb:
     container_name: mongo
     image: mongo
@@ -25,6 +29,8 @@ services:
      MONGO_INITDB_DATABASE: mongo-todolist
     ports:
       - "27017:27017"
+    networks:
+      - elastic
 networks: 
     elastic:
       driver: bridge  
