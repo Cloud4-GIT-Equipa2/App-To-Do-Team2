@@ -3,7 +3,12 @@ services:
   frontend:
     container_name: frontend
     restart: always
-    build: ./frontend
+    build: 
+      context: ./frontend
+      labels:
+          co.elastic.logs/module: nginx
+          co.elastic.logs/fileset.stdout: access
+          co.elastic.logs/fileset.stderr: error
     ports:
       - "4200:4200"
     links:
@@ -19,14 +24,19 @@ services:
   mongodb:
     container_name: mongo
     image: mongo
+    labels:
+      co.elastic.logs/module: mongodb
+      co.elastic.logs/fileset.stdout: log
+    user: root
+    command: ['--logpath', '/var/log/mongodb/mongod.log']
+    image: mongo
     environment:
      MONGO_INITDB_ROOT_USERNAME: admin
      MONGO_INITDB_ROOT_PASSWORD: admin
      MONGO_INITDB_DATABASE: mongo-todolist
     ports:
       - "27017:27017"
+
 networks:
-  default:
-    external: true
-    driver: bridge 
-    name: es_elastic
+      default:
+        name: es_elastic
