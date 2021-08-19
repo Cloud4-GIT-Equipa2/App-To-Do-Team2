@@ -34,6 +34,8 @@ services:
      MONGO_INITDB_ROOT_USERNAME: admin
      MONGO_INITDB_ROOT_PASSWORD: admin
      MONGO_INITDB_DATABASE: mongo-todolist
+    volumes:
+      - ./data/db:/data/db
     ports:
       - "27017:27017"
 
