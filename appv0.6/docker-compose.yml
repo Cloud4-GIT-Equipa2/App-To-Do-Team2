@@ -21,6 +21,8 @@ services:
       - "3000:3000"
     links:
       - mongodb
+
+
   mongodb:
     container_name: mongo
     image: mongo
@@ -38,6 +40,18 @@ services:
       - ./data/db:/data/db
     ports:
       - "27017:27017"
+      
+
+  mongoconnector:
+    container_name: mongoconnector
+    build:
+      context: ./mongo-connector
+    links:
+      - mongodb
+    volumes:
+      - ./docker/mongoconnector:/data
+
+
 
 networks:
       default:
