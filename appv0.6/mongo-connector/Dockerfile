@@ -1,11 +1,11 @@
 FROM python:3-alpine
 
-RUN apk add --no-cache curl sed && pip install 'mongo-connector[elastic5]' 'elastic2-doc-manager[elastic5]'
+RUN apk add --no-cache curl sed && pip install 'mongo-connector[elastic5]' && pip install 'elastic2-doc-manager[elastic5]'
+
+ENTRYPOINT ["mongo-connector"]
 
 COPY startup.sh /tmp/
 
 VOLUME /data
 
 CMD ["/bin/sh", "/tmp/startup.sh"]
-
-#ENTRYPOINT ["mongo-connector"]
