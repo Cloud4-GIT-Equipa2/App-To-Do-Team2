@@ -46,6 +46,10 @@ services:
     container_name: mongoconnector
     build:
       context: ./mongo-connector
+    environment:
+      - MONGO=mongodb://admin:admin@mongodb:27017/todolist?authSource=admin
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=admin
     links:
       - mongodb
     volumes:
