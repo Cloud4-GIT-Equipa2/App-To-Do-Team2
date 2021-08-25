@@ -4,8 +4,8 @@ RUN apk add --no-cache curl sed && pip install 'mongo-connector[elastic5]' && pi
 
 ENTRYPOINT ["mongo-connector"]
 
-COPY startup.sh /tmp/
+#COPY startup.sh /tmp/
 
-VOLUME /data
+#VOLUME /data
 
-CMD ["/bin/bash", "/tmp/startup.sh"]
+#CMD ["/bin/bash", "/tmp/startup.sh"]
