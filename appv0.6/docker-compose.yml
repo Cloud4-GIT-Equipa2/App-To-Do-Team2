@@ -47,9 +47,8 @@ services:
     build:
       context: ./mongo-connector
     environment:
-      - MONGO=mongodb://admin:admin@mongodb:27017/todolist?authSource=admin
-      - MONGO_USERNAME=admin
-      - MONGO_PASSWORD=admin
+      - MONGOURL=mongodb://admin:admin@mongodb:27017/todolist?authSource=admin
+      - ELASTICSEARCHURL=https://es01:9200
     links:
       - mongodb
     volumes:
