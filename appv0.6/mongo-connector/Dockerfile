@@ -1,13 +1,19 @@
-FROM python:3-alpine
+#This will prepare a elasticsearch node with mongo-connector enabled
 
-RUN apk add --no-cache curl sed && pip install 'mongo-connector[elastic5]' && pip install 'elastic2-doc-manager[elastic5]'
+FROM python:3.4.3
 
-COPY ./mongo-connector.conf /data/config/mongo-connector.conf
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ Asia/Shanghai
 
-ENTRYPOINT ["mongo-connector"]
+# Installing Mongo Connector which will connect MongoDB and Elasticsearch
+RUN pip install mongo-connector==2.1
 
-#COPY startup.sh /tmp/
+COPY startup.sh /tmp/
 
-#VOLUME /data
+COPY mongo /usr/bin/
+RUN chmod a+x /usr/bin/mongo
 
-#CMD ["/bin/bash", "/tmp/startup.sh"]
+VOLUME /data
+
+# Sample usage when no commands is given outside
+CMD ["/bin/bash", "/tmp/startup.sh"]

@@ -1,32 +1,44 @@
 #!/bin/bash
 
-mongo="${MONGO:-mongodb}"
-mongoport="${MONGOPORT:-27017}"
-elasticsearch="${ELASTICSEARCH:-es01}"
-elasticport="${ELASTICPORT:-9200}"
+expect="\"ismaster\" : true"
 
-
-function _mongo() {
-    mongo --quiet --host ${mongo} --port ${mongoport} <<EOF
-    $@
-EOF
+check_mongo() {
+  echo "rs.isMaster()" > ismaster
+  actual=`mongo --host ${MONGO} < ismaster`
+  rm -f ismaster
 }
 
-is_master_result="false"
-expected_result="true"
+next() {
+  echo "waiting for mongod node to assume primary status..."
+  sleep 2
+  check_mongo
+}
 
-while true;
+finish() {
+  echo "connected to primary"
+  echo "start running mongo-connector"
+}
+
+while true
 do
-  if [ "${is_master_result}" == "${expected_result}" ] ; then
-    is_master_result=$(_mongo "rs.isMaster().ismaster")
-    echo "Waiting for Mongod node to assume primary status..."
-    sleep 3
+  check_mongo
+  if [ "${actual/$expect}" = "$actual" ] ; then
+    next
   else
-    echo "Mongod node is now primary"
-    break;
+    finish
+    break
   fi
 done
-
 sleep 1
 
-mongo-connector --auto-commit-interval=0 --oplog-ts=/data/oplog.ts -m ${mongo}:${mongoport} -t ${elasticsearch}:${elasticport} -d elastic_doc_manager
+mongo="${MONGO:-mongo}"
+elasticsearch="${ELASTICSEARCH:-elasticsearch}"
+
+mongo-connector --auto-commit-interval=0 \
+  --continue-on-error \
+  --oplog-ts=/data/oplog.ts \
+  --main ${mongo}:27017 \
+  --target-url ${elasticsearch}:9200 \
+  --doc-manager elastic_doc_manager \
+  --admin-username ${MONGO_USERNAME} \
+  --password ${MONGO_PASSWORD} \

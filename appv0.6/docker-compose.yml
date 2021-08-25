@@ -42,16 +42,26 @@ services:
       - "27017:27017"
       
 
-  mongoconnector:
-    container_name: mongoconnector
-    build:
-      context: ./mongo-connector
-    environment:
-      - CONFIG_PATH=/data/config/mongo-connector.conf
+#  mongoconnector:
+#    container_name: mongoconnector
+#    build:
+#      context: ./mongo-connector
+#    environment:
+#      - CONFIG_PATH=/data/config/mongo-connector.conf
+#    links:
+#      - mongodb
+#    volumes:
+#      - ./docker/mongoconnector:/data
+
+
+  mongo_connector:
+    image: weflex/mongo-connector:latest
     links:
-      - mongodb
-    volumes:
-      - ./docker/mongoconnector:/data
+      - elasticsearch:elasticsearch
+    environment:
+      - MONGO=mongodb://admin:admin@mongodb:27017/todolist?authSource=admin
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=admin
 
 
 
