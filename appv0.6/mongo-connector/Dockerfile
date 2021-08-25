@@ -8,4 +8,4 @@ COPY startup.sh /tmp/
 
 VOLUME /data
 
-CMD ["/bin/sh", "/tmp/startup.sh"]
+CMD ["/bin/bash", "/tmp/startup.sh"]
