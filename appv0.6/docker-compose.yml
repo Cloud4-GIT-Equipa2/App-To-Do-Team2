@@ -47,8 +47,7 @@ services:
     build:
       context: ./mongo-connector
     environment:
-      - MONGOURL=mongodb://admin:admin@mongodb:27017/todolist?authSource=admin
-      - ELASTICSEARCHURL=https://es01:9200
+      - CONFIG_PATH=/data/config/mongo-connector.conf
     links:
       - mongodb
     volumes:
