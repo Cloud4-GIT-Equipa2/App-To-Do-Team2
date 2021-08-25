@@ -37,7 +37,7 @@ elasticsearch="${ELASTICSEARCH:-elasticsearch}"
 mongo-connector --auto-commit-interval=0 \
   --continue-on-error \
   --oplog-ts=/data/oplog.ts \
-  --main mongodb:27017 \
+  --main mongodb://admin:admin@mongodb:27017/todolist?authSource=admin \
   --target-url https://es01:9200 \
   --doc-manager elastic2_doc_manager \
   --admin-username ${MONGO_USERNAME} \
