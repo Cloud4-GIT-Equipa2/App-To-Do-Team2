@@ -6,6 +6,6 @@ COPY startup.sh /tmp/
 
 VOLUME /data
 
-CMD ["/bin/bash", "/tmp/startup.sh"]
+CMD ["/bin/sh", "/tmp/startup.sh"]
 
 #ENTRYPOINT ["mongo-connector"]
